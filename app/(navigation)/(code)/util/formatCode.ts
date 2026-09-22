@@ -9,6 +9,7 @@ const parsers = {
   CSS: { import: () => import("prettier/plugins/postcss"), name: "css" },
   SCSS: { import: () => import("prettier/plugins/postcss"), name: "css" },
   YAML: { import: () => import("prettier/plugins/yaml"), name: "yaml" },
+  PHP: { import: () => import("@prettier/plugin-php/standalone"), name: "php" },
   Python: { import: () => Promise.resolve({ default: {} }), name: "python" },
 };
 
@@ -50,6 +51,7 @@ const formatCode = async (code: string, language: Language | null) => {
         : []),
     ],
     ...prettierConfig,
+    ...(language.name === "PHP" && { phpVersion: "8.4", singleQuote: true }),
   });
 
   // remove trailing newline added by prettier

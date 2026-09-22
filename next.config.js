@@ -19,6 +19,9 @@ const nextConfig = {
     ],
   },
   turbopack: {
+    resolveAlias: {
+      fs: { browser: "./utils/empty.js" },
+    },
     rules: {
       "*.svg": [
         {
