@@ -709,7 +709,7 @@ export const THEMES: { [index: string]: Theme } = {
     id: "laravel",
     name: "Laravel",
     background: {
-      from: "#3A1410",
+      from: "#18191B",
       to: "#111113",
     },
     icon: LaravelLogo,

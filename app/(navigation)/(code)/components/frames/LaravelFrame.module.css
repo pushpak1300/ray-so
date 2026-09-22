@@ -2,8 +2,6 @@
 .frame {
   --laravel-red: #f53003;
   --laravel-bg: #111113; /* Slate/dark/1 */
-  --laravel-glow-top: radial-gradient(ellipse 60% 55% at 50% 0%, rgba(245, 48, 3, 0.22), transparent 70%);
-  --laravel-glow-bottom: radial-gradient(ellipse 50% 45% at 50% 100%, rgba(245, 48, 3, 0.08), transparent 70%);
   --laravel-line: #363a3f; /* Border/strong */
   --laravel-diamond: rgba(255, 255, 255, 0.045);
   --laravel-window: #18191b; /* Slate/dark/2 */
@@ -17,9 +15,8 @@
 
   position: relative;
   overflow: hidden;
-  /* isometric diamond grid + red glow, lifted from laravel.com's hero */
-  background: var(--laravel-glow-top), var(--laravel-glow-bottom),
-    repeating-linear-gradient(30deg, var(--laravel-diamond) 0 1px, transparent 1px 28px),
+  /* isometric diamond grid, lifted from laravel.com's hero */
+  background: repeating-linear-gradient(30deg, var(--laravel-diamond) 0 1px, transparent 1px 28px),
     repeating-linear-gradient(-30deg, var(--laravel-diamond) 0 1px, transparent 1px 28px), var(--laravel-bg);
 
   &.noBackground {
@@ -29,14 +26,6 @@
 
 .frameLightMode {
   --laravel-bg: linear-gradient(to bottom, #f0f0f3, #ffffff); /* Slate/3 -> white */
-  /* red core fading through warm orange, so the glow reads as Laravel red, not pink, on white */
-  --laravel-glow-top: radial-gradient(
-    ellipse 60% 50% at 50% 0%,
-    rgba(245, 48, 3, 0.28) 0%,
-    rgba(255, 110, 50, 0.12) 35%,
-    transparent 70%
-  );
-  --laravel-glow-bottom: radial-gradient(ellipse 50% 40% at 50% 100%, rgba(255, 110, 50, 0.1), transparent 70%);
   --laravel-line: #d9d9e0; /* Border/strong */
   --laravel-diamond: rgba(0, 0, 0, 0.045);
   --laravel-window: #ffffff;
@@ -69,7 +58,7 @@
   }
 }
 
-/* Dashed guide lines on all sides, red squares where they cross */
+/* Solid guide lines on all sides, red squares where they cross */
 .gridlinesHorizontal,
 .gridlinesVertical,
 .markersTop,
@@ -86,7 +75,7 @@
     left: -2000px;
     width: 4000px;
     height: 1px;
-    background: repeating-linear-gradient(to right, var(--laravel-line) 0 4px, transparent 4px 8px);
+    background: var(--laravel-line);
     content: "";
   }
 
@@ -104,7 +93,7 @@
     left: var(--offset);
     width: 1px;
     height: 4000px;
-    background: repeating-linear-gradient(to bottom, var(--laravel-line) 0 4px, transparent 4px 8px);
+    background: var(--laravel-line);
     content: "";
   }
 
