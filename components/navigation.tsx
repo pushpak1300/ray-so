@@ -9,7 +9,6 @@ import {
   BrandYoutubeIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
-  RaycastLogoNegIcon,
 } from "@raycast/icons";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./dropdown-menu";
 import Link from "next/link";
@@ -134,9 +133,9 @@ export function Navigation() {
         <div className="-ml-2 flex items-center relative z-10 gap-[4px]">
           <span className="text-sm text-gray-9">by </span>
           <Button variant="transparent" asChild className="pl-[8px]">
-            <a href="https://raycast.com#ref=ray-so" target="_blank" rel="noopener">
-              <RaycastLogoNegIcon className="w-5 h-5 text-brand" />
-              <span className="text-sm text-gray-12 font-medium hidden sm:block">Raycast</span>
+            <a href="https://github.com/pushpak1300" target="_blank" rel="noopener">
+              <BrandGithubIcon className="w-5 h-5" />
+              <span className="text-sm text-gray-12 font-medium hidden sm:block">pushpak1300</span>
             </a>
           </Button>
         </div>

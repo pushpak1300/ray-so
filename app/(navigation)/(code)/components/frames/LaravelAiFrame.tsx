@@ -46,14 +46,17 @@ const LaravelAiFrame = ({ variant }: { variant: "ai" | "mcp" }) => {
         </div>
       )}
       <div className={styles.window}>
-        {/* Guide lines through the window edges, crossing at the corners like laravel.com's section grid */}
+        {/* Guide lines along the window edges: flush with sparkles for AI, offset and fading (Tailwind-style) for MCP */}
         <span className={styles.guidesHorizontal} data-grid></span>
         <span className={styles.guidesVertical} data-grid></span>
-        {["topLeft", "topRight", "bottomLeft", "bottomRight"].map((corner) => (
-          <span key={corner} className={classNames(styles.corner, styles[corner])} data-grid>
-            {variant === "ai" && <SparkleLogo />}
-          </span>
-        ))}
+        {variant === "ai" &&
+          ["topLeft", "topRight", "bottomLeft", "bottomRight"].map((corner) => (
+            <span key={corner} className={classNames(styles.corner, styles[corner])} data-grid>
+              <SparkleLogo />
+            </span>
+          ))}
+        {/* MCP: a signal travelling the bottom guide */}
+        {variant === "mcp" && <span className={classNames(styles.signal, styles.signalBottom)} data-grid></span>}
         {variant === "mcp" && (
           <div className={styles.header}>
             <McpLogo className={styles.mark} />

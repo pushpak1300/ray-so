@@ -9,7 +9,7 @@
   --ai-mark: #b5b3ad; /* Sand/dark/11 */
   --ai-title: #b5b3ad;
   --ai-placeholder: #6f6d66; /* Sand/dark/9 */
-  --ai-ring: 0.85;
+  --ai-ring: 0.9;
   --ai-highlight: rgba(170, 110, 238, 0.16);
 
   position: relative;
@@ -37,6 +37,7 @@
 .window {
   position: relative;
   z-index: 1;
+  /* ponytail: square on purpose, so the guide lines and corner marks meet the window edge exactly */
   border: 1px solid var(--ai-border);
   background-color: var(--ai-window);
 
@@ -158,49 +159,67 @@
   white-space: pre;
 }
 
-.ai .window {
-  border-radius: 0;
-}
-
-/* MCP: gradient rings radiating from the server, like laravel.com/ai/mcp's client orbit */
-.mcp:before {
-  position: absolute;
-  background: var(--ai-gradient);
-  content: "";
-  inset: 0;
-  mask-composite: intersect;
-  mask-image: repeating-radial-gradient(circle at 50% 50%, transparent 0 47px, #000 47px 48px, transparent 48px 56px),
-    repeating-conic-gradient(#000 0 1.5deg, transparent 1.5deg 3deg),
-    radial-gradient(farthest-corner at 50% 50%, #000 35%, transparent 90%);
-  opacity: var(--ai-ring);
-}
-
 .frame.noBackground:before {
   display: none;
 }
 
-/* MCP corners: "+" crosshairs, as on laravel.com's section grid */
-.mcp .corner {
+/* MCP, structured like the Tailwind frame: offset fading guides with a faint signal on the bottom one */
+.mcp .window {
+  border-radius: 8px;
+  background-color: color-mix(in srgb, var(--ai-window) 85%, transparent);
+}
+
+.mcp {
+  --guide-offset: 1.5rem;
+  --ai-guide: var(--ai-border);
+}
+
+.mcp .guidesHorizontal {
   &:before,
   &:after {
-    position: absolute;
-    background: var(--ai-mark);
-    content: "";
-  }
-
-  &:before {
-    width: 15px;
-    height: 1px;
+    z-index: 2;
+    top: calc(-1 * var(--guide-offset));
+    left: -4rem;
+    width: calc(100% + 8rem);
+    mask-image: linear-gradient(to left, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
   }
 
   &:after {
-    width: 1px;
-    height: 15px;
+    top: auto;
+    bottom: calc(-1 * var(--guide-offset));
   }
 }
 
-.mcp .window {
-  border-radius: 12px; /* radius-xl */
+.mcp .guidesVertical {
+  &:before,
+  &:after {
+    z-index: 2;
+    top: -4rem;
+    left: calc(-1 * var(--guide-offset));
+    height: calc(100% + 8rem);
+    mask-image: linear-gradient(to top, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
+  }
+
+  &:after {
+    right: calc(-1 * var(--guide-offset));
+    left: auto;
+  }
+}
+
+/* Gradient streak sitting on a guide: a sharp core over a blurred glow */
+.signal {
+  position: absolute;
+  z-index: 3;
+  width: clamp(10rem, 55%, 32rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #aa6eee 50%, transparent);
+  opacity: calc(var(--ai-ring) * 0.7);
+  pointer-events: none;
+}
+
+.signalBottom {
+  top: calc(100% + var(--guide-offset));
+  left: 24px;
 }
 
 .header {
