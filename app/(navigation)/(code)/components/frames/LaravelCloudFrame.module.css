@@ -1,0 +1,110 @@
+/* Laravel Cloud: one field + dot grid, dashboard-style editor (laravel-brand-guidelines.laravel-demo.cloud) */
+.frame {
+  --cloud-sweep: rgba(113, 168, 255, 0.16); /* Cloud/4 */
+  --cloud-field: #00001e; /* Ink */
+  --cloud-dot: rgba(255, 255, 255, 0.12);
+  /* editor colours sampled from the Cloud dashboard's environment editor */
+  --cloud-window: #121826;
+  --cloud-gutter: #1c2331;
+  --cloud-border: rgba(255, 255, 255, 0.08);
+  --cloud-divider: #1c2331;
+  --cloud-eyebrow: #71a8ff; /* text-link */
+  --cloud-placeholder: #6b7280;
+  --cloud-highlight: rgba(0, 87, 255, 0.18);
+
+  position: relative;
+  overflow: hidden;
+  /* 1px dots on a 10px repeat, over a cool light sweep */
+  background:
+    radial-gradient(circle at 0.5px 0.5px, var(--cloud-dot) 0.6px, transparent 1px) 0 0 / 10px 10px,
+    radial-gradient(ellipse 80% 70% at 15% 0%, var(--cloud-sweep), transparent 70%),
+    var(--cloud-field);
+
+  &.noBackground {
+    background: transparent;
+  }
+}
+
+.frameLightMode {
+  --cloud-sweep: rgba(255, 255, 255, 0.9);
+  --cloud-field: linear-gradient(160deg, #f5f9ff, #e9f3ff); /* Cloud/1 -> Cloud/2 */
+  --cloud-dot: rgba(0, 87, 255, 0.16);
+  --cloud-window: #ffffff;
+  --cloud-gutter: #f9f9fb; /* Slate/2 */
+  --cloud-border: #c7e1ff; /* Cloud/3, hairlines on blue */
+  --cloud-divider: #f0f0f3;
+  --cloud-eyebrow: #0057ff; /* Cloud/6 */
+  --cloud-placeholder: #8b8d98;
+  --cloud-highlight: rgba(0, 87, 255, 0.07);
+}
+
+.window {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid var(--cloud-border);
+  border-radius: 8px; /* radius-lg, cards */
+  background: var(--cloud-window);
+
+  --line-number: var(--cloud-placeholder);
+  --line-number-opacity: 1;
+
+  /* Gutter panel behind line numbers, as in the Cloud dashboard editor. Code starts at --line-number-padding,
+     so the panel stops 14px short of it; the -100px fallback hides it when line numbers are off. */
+  > :last-child {
+    background: linear-gradient(
+      to right,
+      var(--cloud-gutter) calc(var(--line-number-padding, -100px) - 14px),
+      transparent 0
+    );
+  }
+
+  /* Numbers end 12px inside the panel (Editor default puts them 18px left of the code) */
+  :global(.line):before {
+    left: -2px;
+  }
+
+  :global(.highlighted-line) {
+    background-color: var(--cloud-highlight) !important;
+
+    &:after {
+      display: none !important;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  height: 44px;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--cloud-divider);
+  gap: 14px;
+}
+
+/* The cut-corner mark stands in for window controls */
+.mark {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--cloud-eyebrow);
+}
+
+/* Eyebrow: mono, semibold, brand blue; not uppercased, file names are case-sensitive */
+.fileName {
+  flex: 1;
+  justify-content: flex-start;
+  color: var(--cloud-placeholder);
+  font-family: var(--font-commitmono), monospace;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-align: left;
+
+  > input {
+    color: var(--cloud-eyebrow);
+    font-family: var(--font-commitmono), monospace;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-align: left;
+  }
+}

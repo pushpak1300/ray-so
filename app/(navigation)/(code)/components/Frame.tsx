@@ -15,6 +15,8 @@ import ElevenLabsFrame from "./frames/ElevenLabsFrame";
 import FirecrawlFrame from "./frames/FirecrawlFrame";
 import GeminiFrame from "./frames/GeminiFrame";
 import LaravelFrame from "./frames/LaravelFrame";
+import LaravelAiFrame from "./frames/LaravelAiFrame";
+import LaravelCloudFrame from "./frames/LaravelCloudFrame";
 import MintlifyFrame from "./frames/MintlifyFrame";
 import NuxtFrame from "./frames/NuxtFrame";
 import OpenAIFrame from "./frames/OpenAIFrame";
@@ -67,6 +69,12 @@ const Frame = ({ resize = true }: { resize?: boolean }) => {
         return <NuxtFrame />;
       case THEMES.laravel.id:
         return <LaravelFrame />;
+      case THEMES.laravelCloud.id:
+        return <LaravelCloudFrame />;
+      case THEMES.laravelAi.id:
+        return <LaravelAiFrame variant="ai" />;
+      case THEMES.laravelMcp.id:
+        return <LaravelAiFrame variant="mcp" />;
       case THEMES.gemini.id:
         return <GeminiFrame />;
       case THEMES.cloudflare.id:

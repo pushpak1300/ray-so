@@ -251,6 +251,10 @@ export function createCssVariablesTheme(options: CssVariablesThemeOptions = {}):
         settings: { foreground: `var(${variablePrefix}token-class, ${variable("token-function")})` },
       },
       {
+        scope: ["variable.other.assignment.shell"],
+        settings: { foreground: `var(${variablePrefix}token-assignment, ${variable("foreground")})` },
+      },
+      {
         scope: ["entity.other.inherited-class"],
         settings: { foreground: `var(${variablePrefix}token-inherited-class, ${variable("token-function")})` },
       },
