@@ -9,7 +9,8 @@
   --ai-mark: #b5b3ad; /* Sand/dark/11 */
   --ai-title: #b5b3ad;
   --ai-placeholder: #6f6d66; /* Sand/dark/9 */
-  --ai-ring: 0.9;
+  --ai-ring: 0.8;
+  --ai-cross: #6f6d66; /* Sand/dark/9 */
   --ai-highlight: rgba(170, 110, 238, 0.16);
 
   position: relative;
@@ -30,7 +31,8 @@
   --ai-mark: #1b1b18; /* Sand/12 */
   --ai-title: #706f6c; /* Sand/11 */
   --ai-placeholder: #90908c; /* Sand/9 */
-  --ai-ring: 1;
+  --ai-ring: 0.9;
+  --ai-cross: #90908c; /* Sand/9 */
   --ai-highlight: rgba(170, 110, 238, 0.08);
 }
 
@@ -163,77 +165,57 @@
   display: none;
 }
 
-/* MCP, structured like the Tailwind frame: offset fading guides with a faint signal on the bottom one */
-.mcp .window {
-  border-radius: 8px;
-  background-color: color-mix(in srgb, var(--ai-window) 85%, transparent);
-}
-
-.mcp {
-  --guide-offset: 1.5rem;
-  --ai-guide: var(--ai-border);
-}
-
-.mcp .guidesHorizontal {
-  &:before,
-  &:after {
-    z-index: 2;
-    top: calc(-1 * var(--guide-offset));
-    left: -4rem;
-    width: calc(100% + 8rem);
-    mask-image: linear-gradient(to left, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
-  }
-
-  &:after {
-    top: auto;
-    bottom: calc(-1 * var(--guide-offset));
-  }
-}
-
-.mcp .guidesVertical {
-  &:before,
-  &:after {
-    z-index: 2;
-    top: -4rem;
-    left: calc(-1 * var(--guide-offset));
-    height: calc(100% + 8rem);
-    mask-image: linear-gradient(to top, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
-  }
-
-  &:after {
-    right: calc(-1 * var(--guide-offset));
-    left: auto;
-  }
-}
-
-/* Gradient streak sitting on a guide: a sharp core over a blurred glow */
-.signal {
+/* MCP "Orbit": dashed gradient rings radiating from the server, like laravel.com/ai/mcp's client orbit.
+   Values sit on the 8px grid: rings every 64px, 16px corner marks, 16px header padding. */
+.mcp:before {
   position: absolute;
-  z-index: 3;
-  width: clamp(10rem, 55%, 32rem);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #aa6eee 50%, transparent);
-  opacity: calc(var(--ai-ring) * 0.7);
+  background: var(--ai-gradient);
+  content: "";
+  inset: 0;
+  mask-composite: intersect;
+  mask-image: repeating-radial-gradient(circle at 50% 50%, transparent 0 63px, #000 63px 64px),
+    repeating-conic-gradient(#000 0 1.5deg, transparent 1.5deg 3deg),
+    radial-gradient(farthest-corner at 50% 50%, #000 35%, transparent 90%);
+  opacity: var(--ai-ring);
   pointer-events: none;
 }
 
-.signalBottom {
-  top: calc(100% + var(--guide-offset));
-  left: 24px;
+/* "+" marks where the guides cross, as on laravel.com's section grid */
+.mcp .corner {
+  width: 17px;
+  height: 17px;
+  margin: -8px;
+
+  &:before,
+  &:after {
+    position: absolute;
+    background: var(--ai-cross);
+    content: "";
+  }
+
+  &:before {
+    width: 17px;
+    height: 1px;
+  }
+
+  &:after {
+    width: 1px;
+    height: 17px;
+  }
 }
 
 .header {
   display: flex;
   height: 44px;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 16px;
   border-bottom: 1px solid var(--ai-divider);
-  gap: 10px;
+  gap: 8px;
 }
 
 .mark {
-  width: 14px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
   color: var(--ai-mark);
 }
